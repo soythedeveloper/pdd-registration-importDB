@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  
+  #container(class="container")           
+    br
+    h1= "Parole de Dieu Inscription aux retraites"
+    br
+    br
+    form(enctype="multipart/form-data" action="/retreatants/upload")
+      div(class="input-group mb-3")
+        div(class="input-group-prepend")
+          // span(class="input-group-text" id="inputFile") Upload  
+          button(type="submit" class="input-group-text" id="inputFile") Upload
+        div(class="custom-file")
+          input( type="file" class="custom-file-input" id="inputDbFile" aria-describedby="inputFile" accept=".csv, .json")
+          label( class="custom-file-label" for="inputDbFile") Choisir le fichier d'inscription (.csv, .json)
+        
+    
+    script(src='/js/custom-file-upload.js')
+        
