@@ -11,6 +11,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
+    "firebase": "^7.18.0",
     "firestore-export-import": "^0.6.1",
     "formidable": "^1.2.2",
     "http-errors": "~1.6.3",

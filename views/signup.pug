@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  #main(class="container") 
+    div(class="row")
+      div(class='col-md-9 mx-auto"')
+        h2= "Sign up for a new account"
+        form(method="post" action='/users/signup' id="signUpForm")
+          
+          div(class='form-group')
+            label(for='inputEmail') Email Address
+            input(type='email' class='form-control' id='inputEmail' name='inputEmail' required)
+          div(class='form-group')
+            label(for='inputPassword') Password
+            input(type='password' class='form-control' id='inputPassword' name='inputPassword' minlength=6 required)
+          div(class='form-group')
+            label(for='inputPasswordConfirm') Confirm Password
+            input(type='password' class='form-control' id='inputPasswordConfirm' name='inputPasswordConfirm' minlength=6 required)
+        
+        
+          button(type="submit" class="btn btn-primary btn-sm") Sign Up
+          
+      
+  script(src='/js/login-form-validation.js')

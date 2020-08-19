@@ -2,3 +2,8 @@
 a {
   color: #00B7FF;
 }
+.has-focus{
+  border-color: red;
+  border-style: dashed;
+
+}
