@@ -1,6 +1,3 @@
-//require('dotenv').config({path: __dirname + '/.env'})
-
-
 // Firebase Config
 const firebaseConfig = {
   apiKey: process.env['FIREBASE_API_KEY'],

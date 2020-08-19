@@ -1,0 +1,17 @@
+div(class='col-md-9 mx-auto"')
+  h2= "Let's get you started"
+  form(method="post" action='/admin' id="signInForm")
+    div(class='form-group')
+      label(for='inputEmail') Email Address
+      input(type='email' class='form-control' id='inputEmail' name='inputEmail' required)
+    div(class='form-group')
+      label(for='inputPassword') Password
+      input(type='password' class='form-control' id='inputPassword' name='inputPassword' required)
+    div(class='row')
+      div(class='col-md-3')
+        button(type="submit" class="btn btn-primary btn-sm") Sign In
+      div(class='col-md-6 text-right')          
+        a(href='#') Forgot Password 
+  br
+  //p Don't have an account 
+    a(href='/users/signup' class="btn btn-outline-dark btn-sm") Sign Up
