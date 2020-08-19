@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  
+  #main(class="container")           
+    br
+    br
+      
+    div(class="alert alert-success" role="alert")
+      p #{message}
+      button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+        span(aria-hidden="true") X
+    br
+    br
+    br    
+    div.row
+      button(type="button" class="btn btn-primary btn-lg") Check Database
+    

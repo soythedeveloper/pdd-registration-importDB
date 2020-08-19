@@ -1,9 +1,17 @@
 
-a {
-  color: #00B7FF;
+body{
+  font-family: 'Baloo Tamma 2', cursive;
 }
-.has-focus{
-  border-color: red;
-  border-style: dashed;
 
+a {
+  color: #7453f0;
+}
+
+.btn-primary{
+  background-color: #7453f0;
+  color: white;
+}
+
+.container{
+  padding-top: 20px;
 }

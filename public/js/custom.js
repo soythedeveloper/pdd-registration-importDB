@@ -1,3 +1,6 @@
+/**
+  Sign up Form Validation
+*/
 
 
 $('#inputPassword').on('input', function(){
@@ -25,4 +28,11 @@ $('#inputPasswordConfirm').on('focusin', function(){
     $(this).after('<span class="text-danger font-weight-light" id="pwd-must-match">Your passwords must match</span>');
   }
 
+});
+/*
+ Upload File Input
+*/
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });

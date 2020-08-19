@@ -4,17 +4,13 @@ const firebaseConfig = require('./config.js');
 const serviceAccount = require('./service-account.json');
 //const serviceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-class Filestore{
+class Database{
 
    async import(dbjsonfile){
     try {
-      console.log('Initializing Firebase-----------------------');
       await firestoreService.initializeApp(serviceAccount, firebaseConfig.databaseURL);
-      console.log('Firebase Initialized-----------------------');
       const status = await firestoreService.restore(dbjsonfile);
-      console.log('Upload Success-----------------------');
-      console.log(status);
-      return status;
+      console.log(status);      
     }
     catch (error) {
       console.log(error);
@@ -23,4 +19,4 @@ class Filestore{
 }
 
 
-module.exports = Filestore;
+module.exports = Database;
