@@ -3,17 +3,14 @@ extends layout
 block content
   
   #main(class="container")           
-    br    
-    if !isSignedIn    
-      include instructions.pug  
-      div.row
-        include signin.pug
-    br
+    
     if isSignedIn
       div(class="alert alert-success" role="alert")
         p Welcome #{adminName}!
         button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-          span(aria-hidden="true") X
+          span(aria-hidden="true") &times;
       br
       div.row
         include upload.pug    
+    else
+      p Please sign in
