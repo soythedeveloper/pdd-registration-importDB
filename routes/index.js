@@ -1,53 +1,42 @@
 const express = require('express');
-const router = express.Router();
-
-const formidable = require('formidable');
-const fs = require('fs');
-const auth = require('../services/auth.js');
-const user = new auth();
-
-const database = require('../services/database.js');
 const process = require('process');
+const path = require('path');
+const fs = require('fs');
+const Busboy = require('busboy');
+const auth = require('../services/auth.js');
+const database = require('../services/database.js');
 
-const firebase = require('firebase');
-
+const router = express.Router();
+const user = new auth();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-//  res.render('index');
 
+  if (req.session.loggedIn) {
+    res.render('admin', {
+      title: 'Home',
+      isSignedIn: true,
+      adminName: ` back ${req.session.useremail}`
+    });
+  } else {
+    res.render('index');
+  }
 
-  firebase.auth().onAuthStateChanged( user =>{
-    if(user){
-
-      res.render('admin', {
-        title: 'Home',
-        isSignedIn: true,
-        adminName: user.email
-      });
-    }else{
-      res.render('index');
-    }
-
-  });
 });
 
 
-/* GET home page. */
 router.get('/admin', function(req, res, next) {
-  firebase.auth().onAuthStateChanged( user =>{
-    if(user){
 
+    if(req.session.loggedIn){
       res.render('admin', {
         title: 'Home',
         isSignedIn: true,
-        adminName: user.email
+        adminName: ` back ${req.session.useremail}`
       });
-    }else{
-      res.redirect('/');
     }
-
-  });
+    else{
+      res.render('index');
+    }
 
 });
 
@@ -55,6 +44,9 @@ router.get('/admin', function(req, res, next) {
 router.post('/admin', function(req, res, next) {
 
   user.signin(req.body.inputEmail, req.body.inputPassword).then(credentials => {
+
+    req.session.loggedIn = true;
+    req.session.useremail = credentials.user.email;
 
     res.render('index', {
       title: 'Home',
@@ -76,29 +68,54 @@ router.post('/admin', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
   user.signout();
-  return res.redirect('/');
+  req.session.destroy(err => {
+    console.log("error occured while clearing the session")
+  });
+  res.redirect('/');
 
 });
 
+
 router.post('/upload', function(req, res, next) {
+  const fsInstance = new database();
 
-  const form = formidable();
-  const fsIntance = new database();
-  form.parse(req, (err, fields, files) => {
-    var oldpath = files.inputDbFile.path;
-    var newpath = process.cwd() + '/uploads/' + files.inputDbFile.name;
-    fs.rename(oldpath, newpath, function(err) {
-      if (err) throw err;
+  var uploadPath = path.join(process.cwd(), 'uploads');
+  var busboy = new Busboy({
+    headers: req.headers
+  });
+
+  busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+
+    var saveTo = path.join(uploadPath, path.basename(filename));
+
+    file.on('data', function(data) {
+      console.log('File [' + filename + '] was successfully uploaded...');
     });
-    //import data into remote DB
-    const uploadStatus = fsIntance.import(newpath);
 
-    return res.render('confirmation', {
+    const writeStream = fs.createWriteStream(saveTo);
+    file.pipe(writeStream);
+
+    file.on('end', () => writeStream.end());
+
+    writeStream.on('finish', () => {
+      console.log("Import into Firebase will start now...");
+      fsInstance.import(saveTo);
+    });
+    writeStream.on('error', (err) => {
+      console.log("there was an error")
+    });
+  });
+
+  busboy.on('finish', function() {
+    res.render('confirmation', {
       isSignedIn: true,
       message: 'Data uploaded successfully. It can take few minutes for fully create all Documents in Database'
+
     });
 
   });
+
+  req.pipe(busboy);
 
 });
 
