@@ -6,11 +6,12 @@ const serviceAccount = require('./service-account.json');
 
 class Database{
 
+
    async import(dbjsonfile){
     try {
       await firestoreService.initializeApp(serviceAccount, firebaseConfig.databaseURL);
       const status = await firestoreService.restore(dbjsonfile);
-      console.log(status);      
+      console.log(status);
     }
     catch (error) {
       console.log(error);
