@@ -102,7 +102,8 @@ router.post('/upload', function(req, res, next) {
       fsInstance.import(saveTo);
     });
     writeStream.on('error', (err) => {
-      console.log("there was an error")
+      console.log("there was an error");
+	console.log(err);
     });
   });
 
