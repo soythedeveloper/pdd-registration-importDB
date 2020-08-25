@@ -22,12 +22,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/admin", function (req, res, next) {
-  res.render("admin", {
-    title: "Home",
-    isSignedIn: true,
-    adminName: ` back ${req.session.useremail}`,
-  });
-  /*
   if (req.session.loggedIn) {
     res.render("admin", {
       title: "Home",
@@ -36,7 +30,7 @@ router.get("/admin", function (req, res, next) {
     });
   } else {
     res.render("index");
-  } */
+  }
 });
 
 router.post("/admin", function (req, res, next) {
@@ -73,6 +67,7 @@ router.get("/logout", function (req, res, next) {
 
 router.post("/upload", function (req, res, next) {
   var uploadPath = path.join(process.cwd(), "public/uploads/database.csv");
+  console.log(uploadPath);
   var busboy = new Busboy({
     headers: req.headers,
   });
@@ -104,3 +99,4 @@ router.post("/upload", function (req, res, next) {
 });
 
 module.exports = router;
+
