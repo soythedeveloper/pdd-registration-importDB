@@ -6,13 +6,13 @@ block content
     br
     br
       
-    div(class="alert alert-success" role="alert")
+    div(class="alert alert-info" role="alert")
       p #{message}
-      button(type="button" class="close" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden="true") X
     br
     br
-    br    
-    div.row
-      button(type="button" class="btn btn-primary btn-lg") Check Database
-    
+    div.row.align-items-center
+      div.col-4
+        button(type="button" class="btn btn-primary btn-lg" id="btn-migrate-to-firebase" ) Start Migration  
+      div.col-8
+        div.progress
+          div(id="migration-progress" class="progress-bar bg-info align-bottom" style="width:0%" aria-valuemin="0" aria-valuemax="100" )

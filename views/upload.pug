@@ -1,8 +1,11 @@
-form(enctype="multipart/form-data" action="/upload" method="post")
-  div(class="input-group")
-    div(class="input-group-prepend")
-      button(type="submit" class="input-group-text btn-primary" id="inputFile" ) Upload
-    div(class="custom-file")
-      input( type="file" class="custom-file-input col-md-9" name="inputDbFile" id="inputDbFile" aria-describedby="inputFile" accept=".json")
-      label( class="custom-file-label" for="inputDbFile") Choisir le fichier d'inscription (.json)
-    
+
+div.row
+  form(enctype="multipart/form-data" action="/upload" method="post")
+    div(class="input-group")
+      div(class="input-group-prepend")
+        button(type="submit" class="input-group-text btn-primary" id="inputFile" ) Upload
+      div(class="custom-file")
+        input( type="file" class="custom-file-input col-9" name="inputDbFile" id="inputDbFile" aria-describedby="inputFile" accept=".csv")
+        label( class="custom-file-label" for="inputDbFile") Choisir le fichier d'inscription (.csv)
+br   
+br
